@@ -278,5 +278,75 @@ public:
 
 
 
+Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+
+A subarray is a contiguous part of an array.
+
+ class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int K) {
+        vector<int>counts(K, 0);
+        int sum =0;
+        for(int X : nums){
+            sum +=(X%K + K)%K;
+            counts[sum%K]++;
+        }int result =counts[0];
+        for (int c : counts){
+            result +=(c*(c-1))/2;
+        
+        }
+        return result;
+        
+        
+    }
+};
+
+Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, return an array of all the integers that appears twice.
+
+You must write an algorithm that runs in O(n) time and uses only constant extra space.
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+       vector<int>result;
+        
+        for(int n : nums){
+            n = abs(n);
+            if (nums[n-1]>0) nums[n-1] *= -1;
+            else result.push_back(n);
+            
+            
+        }return result;
+        
+        
+    }
+};
 
 
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+        
+        int maxarea=0;
+        int left = 0;
+        int right=height.size()-1;
+        while(left<right){
+            int width=right-left;
+            maxarea = max(maxarea,min(height[left], height[right]) * width);
+            if(height[left] <= height[right]){
+                left++;
+                
+            }else {
+                right--;
+            }
+        }
+       return maxarea; 
+    }
+};
